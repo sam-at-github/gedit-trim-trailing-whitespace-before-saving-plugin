@@ -1,5 +1,5 @@
 # -*- coding: utf-8; tab-width: 4; indent-tabs-mode: nil -*-
-# Copyright © 2010–2013 Daniel Trebbien
+# Copyright © 2010–2014 Daniel Trebbien
 # Copyright © 2006–2008 Osmo Salomaa
 #
 # This program is free software; you can redistribute it and/or modify it under
@@ -139,7 +139,6 @@ class TrimTrailingWhitespaceBeforeSavingPlugin(GObject.Object, Gedit.ViewActivat
         if not eol.ends_line():
             eol.forward_to_line_end()
         tb_slice = doc.get_slice(bol, eol, False)
-        tb_slice = unicode(tb_slice, 'utf-8')
         rstripped_tb_slice = tb_slice.rstrip(TrimTrailingWhitespaceBeforeSavingPlugin.WHITESPACE_CHARS)
         current_line_trailing_whitespace = tb_slice[len(rstripped_tb_slice):it.get_line_offset()]
 
@@ -221,7 +220,6 @@ class TrimTrailingWhitespaceBeforeSavingPlugin(GObject.Object, Gedit.ViewActivat
         start = doc.get_start_iter()
         end = doc.get_end_iter()
         tb_slice = doc.get_slice(start, end, False)
-        tb_slice = unicode(tb_slice, 'utf-8')
         lineno = 0
         for match in TrimTrailingWhitespaceBeforeSavingPlugin.EOL_RE.finditer(tb_slice):
             group1_len = match.end(1) - match.start(1)

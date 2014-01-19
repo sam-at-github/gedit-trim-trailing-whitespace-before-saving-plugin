@@ -42,7 +42,7 @@ This is a simple plugin for Gedit 3 which automatically trims trailing whitespac
 
 ## License
 <pre>
-Copyright © 2010–2013 Daniel Trebbien
+Copyright © 2010–2014 Daniel Trebbien
 Copyright © 2006–2008 Osmo Salomaa
 
 This program is free software; you can redistribute it and/or modify it under

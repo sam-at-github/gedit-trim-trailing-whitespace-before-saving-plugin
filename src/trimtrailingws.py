@@ -24,7 +24,10 @@ def get_trace_info(num_back_frames = 0):
     frame = inspect.currentframe().f_back
     try:
         for i in range(num_back_frames):
-            frame = frame.f_back
+            back_frame = frame.f_back
+            if back_frame == None:
+                break
+            frame = back_frame
 
         filename = frame.f_code.co_filename
 
@@ -45,12 +48,10 @@ def get_trace_info(num_back_frames = 0):
         frame = None
 
 # Bug 668924 - Make gedit_debug_message() introspectable <https://bugzilla.gnome.org/show_bug.cgi?id=668924>
-try:
-    debug_plugin_message = Gedit.debug_plugin_message
-except:
-    def debug_plugin_message(format_str, *format_args):
-        filename, lineno, func_name = get_trace_info(1)
-        Gedit.debug(Gedit.DebugSection.DEBUG_PLUGINS, filename, lineno, func_name)
+# Bug 736616 - Calling debug_plugin_message() from a Python plugin results in an AttributeError <https://bugzilla.gnome.org/show_bug.cgi?id=736616>
+def debug_plugin_message(format_str, *format_args):
+    filename, lineno, func_name = get_trace_info(1)
+    Gedit.debug(Gedit.DebugSection.DEBUG_PLUGINS, filename, lineno, func_name)
 
 
 class TrimTrailingWhitespaceBeforeSavingPlugin(GObject.Object, Gedit.ViewActivatable, PeasGtk.Configurable):

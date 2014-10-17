@@ -3,9 +3,11 @@
 This is a simple plugin for Gedit 3 which automatically trims trailing whitespace from documents when saving. It deletes all horizontal whitespace on the ends of lines as well as extra blank lines at the end of the file.
 
 ## Installation
- 0. Make sure that you have the GtkSource-3.0 GI typelib (`/usr/lib/girepository-1.0/GtkSource-3.0.typelib`). On Ubuntu, this can be installed via:
+ 0. Make sure that you have the GtkSource-3.0 GI typelib (`/usr/lib/girepository-1.0/GtkSource-3.0.typelib` or `/usr/lib64/girepository-1.0/GtkSource-3.0.typelib`). On Ubuntu, this can be installed via:
 
     <pre>sudo apt-get install gir1.2-gtksource-3.0</pre>
+
+    Fedora users should already have the typelib, as it is included in the `gtksourceview3` package.
 
  1. You may need to create some directories if you haven't installed Gedit plugins locally before:
 
@@ -15,7 +17,7 @@ This is a simple plugin for Gedit 3 which automatically trims trailing whitespac
 
     If *not* running Gedit version 3.8 or higher, save the latest [`trimtrailingws.plugin`](https://raw.github.com/dtrebbien/gedit-trim-trailing-whitespace-before-saving-plugin/master/src/trimtrailingws.plugin) and [`trimtrailingws.py`](https://raw.github.com/dtrebbien/gedit-trim-trailing-whitespace-before-saving-plugin/master/src/trimtrailingws.py) from the master branch to `~/.local/share/gedit/plugins`
 
- 3. As root, save [`org.gnome.gedit.plugins.trimtrailingws.gschema.xml`](https://raw.github.com/dtrebbien/gedit-trim-trailing-whitespace-before-saving-plugin/master-python3/src/org.gnome.gedit.plugins.trimtrailingws.gschema.xml) to `/usr/local/share/glib-2.0/schemas` and run:
+ 3. As root, save [`org.gnome.gedit.plugins.trimtrailingws.gschema.xml`](https://raw.github.com/dtrebbien/gedit-trim-trailing-whitespace-before-saving-plugin/master-python3/src/org.gnome.gedit.plugins.trimtrailingws.gschema.xml) to `/usr/local/share/glib-2.0/schemas` (you may need to create this directory if it does not exist) and run:
 
     <pre>glib-compile-schemas /usr/local/share/glib-2.0/schemas</pre>
 

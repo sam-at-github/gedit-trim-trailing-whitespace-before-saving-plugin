@@ -82,14 +82,17 @@ class TrimTrailingWhitespaceBeforeSavingPlugin(GObject.Object, Gedit.ViewActivat
         """Connect to the document's 'saving' and 'saved' signals."""
         doc = self.view.get_buffer()
 
-        if not hasattr(doc, "saving_handler_id"):
-            doc.saving_handler_id = doc.connect("saving", self.__on_document_saving)
+        if not hasattr(doc, "save_handler_id"):
+            try:
+                doc.save_handler_id = doc.connect("save", self.__on_document_save)
+            except:
+                doc.save_handler_id = doc.connect("saving", self.__on_document_save)
 
         if not hasattr(doc, "saved_handler_id"):
             doc.saved_handler_id = doc.connect("saved", self.__on_document_saved)
 
     def do_deactivate(self):
-        """Disconnect from the document's 'saving' and 'saved' signals."""
+        """Disconnect from the document's 'save' and 'saved' signals."""
         doc = self.view.get_buffer()
 
         try:
@@ -101,12 +104,12 @@ class TrimTrailingWhitespaceBeforeSavingPlugin(GObject.Object, Gedit.ViewActivat
             doc.disconnect(saved_handler_id)
 
         try:
-            saving_handler_id = doc.saving_handler_id
+            save_handler_id = doc.save_handler_id
         except AttributeError:
             pass
         else:
-            del doc.saving_handler_id
-            doc.disconnect(saving_handler_id)
+            del doc.save_handler_id
+            doc.disconnect(save_handler_id)
 
     def do_create_configure_widget(self):
         settings = TrimTrailingWhitespaceBeforeSavingPlugin.settings
@@ -119,7 +122,7 @@ class TrimTrailingWhitespaceBeforeSavingPlugin(GObject.Object, Gedit.ViewActivat
 
         return restore_trailing_ws_check_button
 
-    def __on_document_saving(self, doc, *args):
+    def __on_document_save(self, doc, *args):
         """Trim trailing space in the document."""
 
         if hasattr(doc, "current_lineno"):
@@ -155,7 +158,7 @@ class TrimTrailingWhitespaceBeforeSavingPlugin(GObject.Object, Gedit.ViewActivat
         self.__trim_trailing_blank_lines(doc)
         doc.end_user_action()
 
-    def __on_document_saved(self, doc, err):
+    def __on_document_saved(self, doc, *args):
         try:
             current_lineno = doc.current_lineno
         except AttributeError:

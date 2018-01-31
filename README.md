@@ -5,13 +5,13 @@ This is a simple plugin for Gedit 3 which automatically trims trailing whitespac
 ## Installation
  0. Make sure that you have the GtkSource-3.0 GI typelib (`/usr/lib/girepository-1.0/GtkSource-3.0.typelib` or `/usr/lib64/girepository-1.0/GtkSource-3.0.typelib`). On Ubuntu, this can be installed via:
 
-    <pre>sudo apt-get install gir1.2-gtksource-3.0</pre>
+        sudo apt-get install gir1.2-gtksource-3.0
 
     Fedora users should already have the typelib, as it is included in the `gtksourceview3` package.
 
  1. You may need to create some directories if you haven't installed Gedit plugins locally before:
 
-    <pre>mkdir --parents ~/.local/share/gedit/plugins</pre>
+        mkdir --parents ~/.local/share/gedit/plugins
 
  2. If running Gedit version 3.8 or higher, save the latest [`trimtrailingws.plugin`](https://raw.github.com/dtrebbien/gedit-trim-trailing-whitespace-before-saving-plugin/master-python3/src/trimtrailingws.plugin) and [`trimtrailingws.py`](https://raw.github.com/dtrebbien/gedit-trim-trailing-whitespace-before-saving-plugin/master-python3/src/trimtrailingws.py) from the master-python3 branch to `~/.local/share/gedit/plugins`.
 
@@ -19,24 +19,26 @@ This is a simple plugin for Gedit 3 which automatically trims trailing whitespac
 
  3. As root, save [`org.gnome.gedit.plugins.trimtrailingws.gschema.xml`](https://raw.github.com/dtrebbien/gedit-trim-trailing-whitespace-before-saving-plugin/master-python3/src/org.gnome.gedit.plugins.trimtrailingws.gschema.xml) to `/usr/local/share/glib-2.0/schemas` (you may need to create this directory if it does not exist) and run:
 
-    <pre>glib-compile-schemas /usr/local/share/glib-2.0/schemas</pre>
+        glib-compile-schemas /usr/local/share/glib-2.0/schemas
 
     Alternatively, to install the GSettings schema without root access, you can change the [`XDG_DATA_DIRS` environment variable](http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html) to include a directory under your control, such as `~/.local/share/`:
 
       * Add the following to your `.bashrc`:
 
-        <pre>if [ -z "$XDG_DATA_DIRS" ]; then
+        ```sh
+        if [ -z "$XDG_DATA_DIRS" ]; then
             export XDG_DATA_DIRS=/usr/local/share/:/usr/share/
         fi
-        export XDG_DATA_DIRS=~/.local/share/:"$XDG_DATA_DIRS"</pre>
+        export XDG_DATA_DIRS=~/.local/share/:"$XDG_DATA_DIRS"
+        ```
 
       * Then run:
 
-        <pre>mkdir --parents ~/.local/share/glib-2.0/schemas</pre>
+            mkdir --parents ~/.local/share/glib-2.0/schemas
 
       * Save [`org.gnome.gedit.plugins.trimtrailingws.gschema.xml`](https://raw.github.com/dtrebbien/gedit-trim-trailing-whitespace-before-saving-plugin/master-python3/src/org.gnome.gedit.plugins.trimtrailingws.gschema.xml) to `~/.local/share/glib-2.0/schemas` and run:
 
-        <pre>glib-compile-schemas ~/.local/share/glib-2.0/schemas</pre>
+            glib-compile-schemas ~/.local/share/glib-2.0/schemas
 
  4. Re-start Gedit.
  5. From the Edit menu, select "Preferences".
@@ -54,27 +56,25 @@ This is a simple plugin for Gedit 3 which automatically trims trailing whitespac
  *  The plugin source code is based on [Osmo Salomaa](https://github.com/otsaloma)'s "Save without trailing space" plugin for Gedit 2.x that was uploaded to `http://users.tkk.fi/~otsaloma/gedit/`. The website seems to be down now, but the Internet Archive as well as this git repo hold copies of the original source files, `trailsave.gedit-plugin` and `trailsave.py`.
  * If you see the error message:
 
-    <pre>(gedit:3582): GLib-GIO-ERROR **: Settings schema 'org.gnome.gedit.plugins.trimtrailingws' is not installed
-</pre>
+        (gedit:3582): GLib-GIO-ERROR **: Settings schema 'org.gnome.gedit.plugins.trimtrailingws' is not installed
 
     then you need to install the GSettings schema file, `org.gnome.gedit.plugins.trimtrailingws.gschema.xml`. See the section on Installation above.
 
 ## License
-<pre>
-Copyright © 2010–2014 Daniel Trebbien
-Copyright © 2006–2008 Osmo Salomaa
 
-This program is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation; either version 2 of the License, or (at your option) any later
-version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-details.
-
-You should have received a copy of the GNU General Public License along with
-this program; if not, write to the Free Software Foundation, Inc., 51
-Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-</pre>
+    Copyright © 2010–2014 Daniel Trebbien
+    Copyright © 2006–2008 Osmo Salomaa
+    
+    This program is free software; you can redistribute it and/or modify it under
+    the terms of the GNU General Public License as published by the Free Software
+    Foundation; either version 2 of the License, or (at your option) any later
+    version.
+    
+    This program is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+    details.
+    
+    You should have received a copy of the GNU General Public License along with
+    this program; if not, write to the Free Software Foundation, Inc., 51
+    Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
